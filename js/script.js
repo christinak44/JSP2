@@ -1,3 +1,4 @@
+
 /*
 Treehouse Techdegree:
 FSJS Project 2 - Data Pagination and Filtering
@@ -19,29 +20,50 @@ const itemsPerPage = 9
 const showPage = (list, page) => {
 startIndex = (page * itemsPerPage) - itemsPerPage
 endIndex = page * itemsPerPage
-const studentList = document.getElementsByClassName('student-list')
+const studentList = document.querySelector('.student-list')
 studentList.innerHTML = ""
-console.log(list.length)
+
 for (let i = 0; i < list.length; i++ )
 {
-   if (list[i] >= startIndex && list[i] < endIndex) {
+   let studentDetails = list[i]
+     
+   if (i >= startIndex && i < endIndex) {
       let studentItem = list[i]
-      let li = document.createElement('li').className = "student-item cf"
-      let div = document.createElement('div').className = "student-details"
-      let img = document.createElement('img').className = "avatar"
-      img.src = `data[${studentItem}].picture.medium`
+      let li = document.createElement('li')
+      li.className = "student-item cf"
+      studentList.appendChild(li)
+      let div = document.createElement('div')
+      div.className = "student-details"
+      li.appendChild(div)
+      let img = document.createElement('img')
+      img.className = "avatar"
+      img.src = studentItem.picture.medium
       img.alt = "Profile Picture"
-      let h3 = document.createElement('h3').innerHTML = `data[${studentItem}].name.first data[${studentItem}].name.last`
-      let span = document.createElement('span').className = "email"
-      span.innerHTML = `data[${studentItem}].email`
-      div.appendChild(img, h3, span)
-      let divJoined = document.createElement('div').className = "joined-details"
-      let spanDate = document.createElement('span').className = "date"
-      spanDate.innerHTML = `data[${studentItem}].registered.date`
+      div.appendChild(img)
+      let h3 = document.createElement('h3')
+      h3.innerHTML = studentItem.name['first']+(' ') + studentItem.name['last']
+      div.appendChild(h3)
+      let span = document.createElement('span')
+      span.className = "email"
+      span.innerHTML = studentItem.email
+      div.appendChild(span)
+      let divJoined = document.createElement('div')
+      divJoined.className = "joined-details"
+      div.appendChild(divJoined)
+      //studentList.appendChild(divJoined)
+      let spanDate = document.createElement('span')
+      spanDate.className = "date"
+      spanDate.innerHTML = studentItem.registered.date
       divJoined.appendChild(spanDate)
-      studentList.insertAdjacentHTML(beforeend, studentItem)
-      console.log('Student',studentItem)
+      //studentList.insertAdjacentHTML('beforeend', studentItem)
+      console.log(studentList)
+      console.log(div)
+      console.log('Student', studentItem)
+      console.log(studentItem.name['first'])
    }
+   
+   
+   
 }
 }
 showPage(data,1)
@@ -50,9 +72,29 @@ showPage(data,1)
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
-const addPagination = () => {
+const addPagination = (list) => {
+   const numOfPages = Math.ceil(list.length/ itemsPerPage)
+   const linkList = document.querySelector('.link-list')
+   linkList.innerHTML = ""
    
+   for (let i = 1; i <= numOfPages; i++) {
+      let button = i
+      linkList.innerHTML += `
+      <li>
+      <button type="button">${button}</button>
+      </li>`
+   }
+   const activePage = document.querySelector('button')
+   activePage.className = 'active'
+   console.log(linkList)
 }
+  
+// linkList.addEventListener('click', () => {
+//    if (button) {
+//       activePage
+//    }
+// })
 
-
+addPagination(data);
+console.log(linkList)
 // Call functions
