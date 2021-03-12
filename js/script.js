@@ -29,49 +29,31 @@ for (let i = 0; i < list.length; i++ )
      
    if (i >= startIndex && i < endIndex) {
       let studentItem = list[i]
-      let li = document.createElement('li')
-      li.className = "student-item cf"
-      studentList.appendChild(li)
-      let div = document.createElement('div')
-      div.className = "student-details"
-      li.appendChild(div)
-      let img = document.createElement('img')
-      img.className = "avatar"
-      img.src = studentItem.picture.medium
-      img.alt = "Profile Picture"
-      div.appendChild(img)
-      let h3 = document.createElement('h3')
-      h3.innerHTML = studentItem.name['first']+(' ') + studentItem.name['last']
-      div.appendChild(h3)
-      let span = document.createElement('span')
-      span.className = "email"
-      span.innerHTML = studentItem.email
-      div.appendChild(span)
-      let divJoined = document.createElement('div')
-      divJoined.className = "joined-details"
-      div.appendChild(divJoined)
-      //studentList.appendChild(divJoined)
-      let spanDate = document.createElement('span')
-      spanDate.className = "date"
-      spanDate.innerHTML = studentItem.registered.date
-      divJoined.appendChild(spanDate)
-      //studentList.insertAdjacentHTML('beforeend', studentItem)
-      console.log(studentList)
-      console.log(div)
-      console.log('Student', studentItem)
-      console.log(studentItem.name['first'])
+     studentList.innerHTML += `
+     <li class="student-item cf">
+     <div class="student-details">
+       <img class="avatar" src= ${studentItem.picture.medium} alt="Profile Picture">
+       <h3>${studentItem.name['first']} ${studentItem.name['last']}</h3>
+       <span class="email">${studentItem.email}</span>
+     </div>
+     <div class="joined-details">
+       <span class="date">${studentItem.registered.date}</span>
+     </div>
+   </li>
+     `
    }
    
    
    
 }
 }
-showPage(data,1)
+
 
 /*
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
+
 const addPagination = (list) => {
    const numOfPages = Math.ceil(list.length/ itemsPerPage)
    const linkList = document.querySelector('.link-list')
@@ -86,15 +68,19 @@ const addPagination = (list) => {
    }
    const activePage = document.querySelector('button')
    activePage.className = 'active'
-   console.log(linkList)
+   
+   linkList.addEventListener('click', (e) => {
+         
+      if (e.target.tagName === 'BUTTON') {
+            document.querySelector('.active').className = " "
+            e.target.className = 'active'
+            showPage(list, e.target.textContent)
+         }
+      })
 }
   
-// linkList.addEventListener('click', () => {
-//    if (button) {
-//       activePage
-//    }
-// })
 
-addPagination(data);
-console.log(linkList)
+
 // Call functions
+showPage(data,1)
+addPagination(data);
