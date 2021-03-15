@@ -13,8 +13,9 @@ For assistance:
 */
 
 /*
-Create the `showPage` function
-This function will create and insert/append the elements needed to display a "page" of nine students
+showPage function
+Using the items per page const this function calculates the start and stop index for the students list
+in order to display by pages of 9 each
 */
 const itemsPerPage = 9
 const showPage = (list, page) => {
@@ -50,8 +51,9 @@ const showPage = (list, page) => {
 
 
 /*
-Create the `addPagination` function
-This function will create and insert/append the elements needed for the pagination buttons
+addPagination function
+Generate the buttons needed to move from page to page using the list length
+and itemsPerPage to calculate the number of buttons needed.
 */
 
 const addPagination = (list) => {
