@@ -13,45 +13,47 @@ For assistance:
 */
 
 /*
-Create the `showPage` function
-This function will create and insert/append the elements needed to display a "page" of nine students
+showPage function
+Using the items per page const this function calculates the start and stop index for the students list
+in order to display by pages of 9 each
 */
 const itemsPerPage = 9
 const showPage = (list, page) => {
-startIndex = (page * itemsPerPage) - itemsPerPage
-endIndex = page * itemsPerPage
-const studentList = document.querySelector('.student-list')
-studentList.innerHTML = ""
+   startIndex = (page * itemsPerPage) - itemsPerPage
+   endIndex = page * itemsPerPage
+   const studentList = document.querySelector('.student-list')
+   studentList.innerHTML = ""
 
-for (let i = 0; i < list.length; i++ )
-{
-   let studentDetails = list[i]
-     
-   if (i >= startIndex && i < endIndex) {
-      let studentItem = list[i]
-     studentList.innerHTML += `
-     <li class="student-item cf">
-     <div class="student-details">
-       <img class="avatar" src= ${studentItem.picture.medium} alt="Profile Picture">
-       <h3>${studentItem.name['first']} ${studentItem.name['last']}</h3>
-       <span class="email">${studentItem.email}</span>
-     </div>
-     <div class="joined-details">
-       <span class="date">${studentItem.registered.date}</span>
-     </div>
-   </li>
-     `
+   for (let i = 0; i < list.length; i++ )
+   {
+      let studentDetails = list[i]
+      
+      if (i >= startIndex && i < endIndex) {
+         let studentItem = list[i]
+      studentList.innerHTML += `
+      <li class="student-item cf">
+      <div class="student-details">
+         <img class="avatar" src= ${studentItem.picture.medium} alt="Profile Picture">
+         <h3>${studentItem.name['first']} ${studentItem.name['last']}</h3>
+         <span class="email">${studentItem.email}</span>
+      </div>
+      <div class="joined-details">
+         <span class="date">${studentItem.registered.date}</span>
+      </div>
+      </li>
+      `
+      }
+      
+      
+      
    }
-   
-   
-   
-}
 }
 
 
 /*
-Create the `addPagination` function
-This function will create and insert/append the elements needed for the pagination buttons
+addPagination function
+Generate the buttons needed to move from page to page using the list length
+and itemsPerPage to calculate the number of buttons needed.
 */
 
 const addPagination = (list) => {
